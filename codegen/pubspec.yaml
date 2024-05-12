@@ -1,6 +1,6 @@
 name: lce_codegen
 description: codegen for lce
-version: 0.1.0+1
+version: 0.1.0+2
 homepage: https://github.com/TshineZheng/flutter_lce
 
 environment:
