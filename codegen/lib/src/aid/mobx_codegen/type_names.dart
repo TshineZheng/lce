@@ -1,8 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
-
-import 'comma_list.dart';
+import 'package:lce_codegen/src/aid/mobx_codegen/comma_list.dart';
 
 /// Determines the names of types within the context of a library, determining
 /// prefixes if applicable.
@@ -36,7 +35,6 @@ class LibraryScopedNameFinder {
     // Reverse each import's export namespace so we can map elements to their
     // library-local names. Note that the definedNames include a prefix if there
     // is one.
-    // ignore: deprecated_member_use
     for (final import in library.libraryImports) {
       for (final entry in import.namespace.definedNames.entries) {
         _namesByElement[entry.value] = entry.key;
@@ -76,14 +74,12 @@ class LibraryScopedNameFinder {
   ///
   /// The returned string will include import prefixes on all applicable types.
   String _getDartTypeName(DartType type) {
-    // ignore: deprecated_member_use
-    var typeElement = type.element2;
+    var typeElement = type.element;
     if (type is FunctionType) {
       // If we're dealing with a typedef, we let it undergo the standard name
       // lookup. Otherwise, we special case the function naming.
       if (type.alias?.element is TypeAliasElement) {
-        // ignore: deprecated_member_use
-        typeElement = type.alias!.element.aliasedElement?.enclosingElement3;
+        typeElement = type.alias!.element.aliasedElement?.enclosingElement;
       } else {
         return _getFunctionTypeName(type);
       }
